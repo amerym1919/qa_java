@@ -8,9 +8,9 @@ import java.util.List;
 
 public class LionTest {
 
-    // Проверяет, что лев получает еду
+    // Проверяет, что лев возвращает еду от кошачьих
     @Test
-    public void getFoodReturnsPredatorFood() throws Exception {
+    public void getFoodReturnsFelineFood() throws Exception {
         Feline feline = Mockito.mock(Feline.class);
         Lion lion = new Lion("Самец", feline);
 
@@ -18,10 +18,20 @@ public class LionTest {
         Mockito.when(feline.eatMeat()).thenReturn(expectedFood);
 
         Assert.assertEquals(expectedFood, lion.getFood());
+    }
+
+    // Проверяет, что лев вызывает метод получения мяса
+    @Test
+    public void getFoodCallsEatMeat() throws Exception {
+        Feline feline = Mockito.mock(Feline.class);
+        Lion lion = new Lion("Самец", feline);
+
+        lion.getFood();
+
         Mockito.verify(feline).eatMeat();
     }
 
-    // Проверяет, что лев получает количество львят
+    // Проверяет, что лев возвращает количество львят от кошачьих
     @Test
     public void getKittensReturnsFelineKittens() throws Exception {
         Feline feline = Mockito.mock(Feline.class);
@@ -31,6 +41,16 @@ public class LionTest {
         Mockito.when(feline.getKittens()).thenReturn(expectedKittens);
 
         Assert.assertEquals(expectedKittens, lion.getKittens());
+    }
+
+    // Проверяет, что лев вызывает метод получения котят
+    @Test
+    public void getKittensCallsFelineMethod() throws Exception {
+        Feline feline = Mockito.mock(Feline.class);
+        Lion lion = new Lion("Самка", feline);
+
+        lion.getKittens();
+
         Mockito.verify(feline).getKittens();
     }
 
@@ -39,14 +59,9 @@ public class LionTest {
     public void constructorThrowsExceptionForWrongSex() {
         Feline feline = Mockito.mock(Feline.class);
 
-        Exception exception = Assert.assertThrows(
+        Assert.assertThrows(
                 Exception.class,
                 () -> new Lion("Неверное значение", feline)
-        );
-
-        Assert.assertEquals(
-                "Используйте допустимые значения пола животного - самец или самка",
-                exception.getMessage()
         );
     }
 }

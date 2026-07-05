@@ -17,7 +17,7 @@ public class CatTest {
         Assert.assertEquals("Мяу", cat.getSound());
     }
 
-    // Проверяет, что кошка получает еду
+    // Проверяет, что кошка возвращает еду от хищника
     @Test
     public void getFoodReturnsPredatorFood() throws Exception {
         Predator predator = Mockito.mock(Predator.class);
@@ -27,6 +27,16 @@ public class CatTest {
         Mockito.when(predator.eatMeat()).thenReturn(expectedFood);
 
         Assert.assertEquals(expectedFood, cat.getFood());
+    }
+
+    // Проверяет, что кошка вызывает метод получения мяса
+    @Test
+    public void getFoodCallsEatMeat() throws Exception {
+        Predator predator = Mockito.mock(Predator.class);
+        Cat cat = new Cat(predator);
+
+        cat.getFood();
+
         Mockito.verify(predator).eatMeat();
     }
 }
