@@ -4,18 +4,19 @@ import java.util.List;
 
 public class Cat {
 
-    Predator predator;
+    private final Predator predator;
 
-    public Cat(Feline feline) {
-        this.predator = feline;
+    public Cat(Predator predator) {
+        this.predator = predator;
     }
 
+    // Возвращает голос кошки
     public String getSound() {
         return "Мяу";
     }
 
+    // Возвращает пищу кошки
     public List<String> getFood() throws Exception {
         return predator.eatMeat();
     }
-
 }
